@@ -1,0 +1,231 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String            @id @default(uuid())
+  name        String?
+  email       String            @unique
+  password    String
+  role        Role              @default(user)
+  status      UserStatus        @default(active)
+  phone       String?
+  lastLogin   DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime?         @updatedAt
+  deletedAt   DateTime?
+  vendorProfile VendorProfile?
+  orders      Order[]
+  posts       CommunityPost[]
+  comments    Comment[]
+  refreshTokens RefreshToken[]
+
+  @@index([email])
+}
+
+model VendorProfile {
+  id                  String                @id @default(uuid())
+  userId              String                @unique
+  user                User                  @relation(fields: [userId], references: [id])
+  farmName            String?
+  description         String?
+  farmLocation        String?
+  latitude            Float?
+  longitude           Float?
+  certificationStatus CertificationStatus   @default(pending)
+  contactNumber       String?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?             @updatedAt
+  produce             Produce[]
+  rentalSpaces        RentalSpace[]
+  sustainabilityCerts SustainabilityCert[]
+}
+
+model Produce {
+  id                  String              @id @default(uuid())
+  vendorId            String
+  vendor              VendorProfile       @relation(fields: [vendorId], references: [id])
+  name                String
+  description         String?
+  category            String?
+  price               Decimal
+  unit                ProduceUnit
+  availableQuantity   Int
+  isOrganic           Boolean             @default(false)
+  certificationStatus CertificationStatus
+  status              ProduceStatus       @default(active)
+  imageUrl            String?
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime?           @updatedAt
+  deletedAt           DateTime?
+  orderItems          OrderItem[]
+
+  @@index([vendorId])
+}
+
+model RentalSpace {
+  id                   String                  @id @default(uuid())
+  vendorId             String
+  vendor               VendorProfile           @relation(fields: [vendorId], references: [id])
+  location             String
+  latitude             Float?
+  longitude            Float?
+  size                 String
+  price                Decimal
+  availability         RentalSpaceAvailability @default(active)
+  rentalDurationInDays Int
+  waterAvailability    Boolean
+  sunlightHours        Int
+  description          String?
+  imageUrl             String?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime?               @updatedAt
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  status          OrderStatus   @default(pending)
+  totalAmount     Decimal
+  shippingAddress String
+  paymentStatus   PaymentStatus @default(pending)
+  paymentMethod   PaymentMethod
+  orderDate       DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime?     @updatedAt
+  items           OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  produceId String
+  produce   Produce @relation(fields: [produceId], references: [id])
+  quantity  Int
+  price     Decimal
+}
+
+model CommunityPost {
+  id          String              @id @default(uuid())
+  userId      String
+  user        User                @relation(fields: [userId], references: [id])
+  postContent String
+  tags        String?
+  likesCount  Int                 @default(0)
+  status      CommunityPostStatus @default(active)
+  isDeleted   Boolean             @default(false)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime?           @updatedAt
+  deletedAt   DateTime?
+  comments    Comment[]
+
+  @@index([userId])
+}
+
+model Comment {
+  id        String         @id @default(uuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  postId    String
+  post      CommunityPost  @relation(fields: [postId], references: [id])
+  content   String
+  parentId  String?
+  parent    Comment?       @relation("replies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies   Comment[]      @relation("replies")
+  isDeleted Boolean        @default(false)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime?      @updatedAt
+  deletedAt DateTime?
+}
+
+model SustainabilityCert {
+  id                String              @id @default(uuid())
+  vendorId          String
+  vendor            VendorProfile       @relation(fields: [vendorId], references: [id])
+  certifyingAgency  String
+  certificateFile   String
+  certificationDate DateTime
+  expiryDate        DateTime
+  status            CertificationStatus @default(pending)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime?           @updatedAt
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  user
+  vendor
+  admin
+}
+
+enum UserStatus {
+  active
+  inactive
+  banned
+}
+
+enum CertificationStatus {
+  pending
+  approved
+  rejected
+}
+
+enum ProduceStatus {
+  active
+  out_of_stock
+}
+
+enum ProduceUnit {
+  kg
+  piece
+  bundle
+}
+
+enum RentalSpaceAvailability {
+  active
+  booked
+}
+
+enum OrderStatus {
+  pending
+  shipped
+  delivered
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum PaymentMethod {
+  cod
+  card
+  mobile_banking
+}
+
+enum CommunityPostStatus {
+  active
+  hidden
+}
+
