@@ -1,3 +1,5 @@
+import logger from '../utils/logger.js';
+
 const handleZodError = (err) => {
     const errors = err.issues.map(error => {
         return {
@@ -23,13 +25,14 @@ const errorHandler = (err, req, res, next) => {
     }
 
     if (err.isOperational) {
+        logger.warn(`${statusCode} - ${message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
         return res.status(statusCode).json({
             success: false,
             message,
         });
     }
 
-    console.error('[Global Error_Handler]:', err);
+    logger.error(`${statusCode} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip} - ${err.stack}`);
 
     res.status(500).json({
         success: false,
