@@ -5,6 +5,7 @@ import vendorRoutes from './vendor.routes.js';
 import produceRoutes from './produce.routes.js';
 import rentalRoutes from './rental.routes.js';
 import orderRoutes from './order.routes.js';
+import communityRoutes from './community.routes.js';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/vendor', vendorRoutes);
 router.use('/produce', produceRoutes);
 router.use('/rentals', rentalRoutes);
 router.use('/orders', orderRoutes);
+router.use('/community', communityRoutes);
 
 export default router;

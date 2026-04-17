@@ -19,7 +19,7 @@ router.use(authenticate);
 
 /**
  * @swagger
- * /api/v1/orders:
+ * /orders:
  *   get:
  *     summary: List all orders for the authenticated user
  *     tags: [Orders]
@@ -33,7 +33,7 @@ router.get('/', orderController.listOrders);
 
 /**
  * @swagger
- * /api/v1/orders/dashboard/user:
+ * /orders/dashboard/user:
  *   get:
  *     summary: User order dashboard statistics
  *     tags: [Orders]
@@ -47,7 +47,7 @@ router.get('/dashboard/user', orderController.userDashboard);
 
 /**
  * @swagger
- * /api/v1/orders/dashboard/vendor:
+ * /orders/dashboard/vendor:
  *   get:
  *     summary: Vendor order dashboard statistics
  *     tags: [Orders]
@@ -61,7 +61,7 @@ router.get('/dashboard/vendor', authorize('vendor'), orderController.vendorDashb
 
 /**
  * @swagger
- * /api/v1/orders/dashboard/admin:
+ * /orders/dashboard/admin:
  *   get:
  *     summary: Admin order dashboard statistics
  *     tags: [Orders]
@@ -75,7 +75,7 @@ router.get('/dashboard/admin', authorize('admin'), orderController.adminDashboar
 
 /**
  * @swagger
- * /api/v1/orders/{id}:
+ * /orders/{id}:
  *   get:
  *     summary: Get order details by ID
  *     tags: [Orders]
@@ -98,7 +98,7 @@ router.get('/:id', orderController.getOrderById);
 
 /**
  * @swagger
- * /api/v1/orders:
+ * /orders:
  *   post:
  *     summary: Create a new order
  *     tags: [Orders]
@@ -141,7 +141,7 @@ router.post('/', createLimiter, validate(createOrderSchema), orderController.cre
 
 /**
  * @swagger
- * /api/v1/orders/{id}/status:
+ * /orders/{id}/status:
  *   put:
  *     summary: Update order status
  *     tags: [Orders]

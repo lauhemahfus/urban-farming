@@ -17,7 +17,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/rentals:
+ * /rentals:
  *   get:
  *     summary: List all rental spaces
  *     tags: [RentalSpace]
@@ -62,7 +62,7 @@ router.get('/', rentalController.listRentalSpaces);
 
 /**
  * @swagger
- * /api/v1/rentals/dashboard/vendor:
+ * /rentals/dashboard/vendor:
  *   get:
  *     summary: Get vendor dashboard for rental spaces
  *     tags: [RentalSpace]
@@ -76,7 +76,7 @@ router.get('/dashboard/vendor', authenticate, authorize('vendor'), rentalControl
 
 /**
  * @swagger
- * /api/v1/rentals/dashboard/admin:
+ * /rentals/dashboard/admin:
  *   get:
  *     summary: Get admin dashboard for rental spaces
  *     tags: [RentalSpace]
@@ -90,7 +90,7 @@ router.get('/dashboard/admin', authenticate, authorize('admin'), rentalControlle
 
 /**
  * @swagger
- * /api/v1/rentals:
+ * /rentals:
  *   post:
  *     summary: Create a new rental space
  *     tags: [RentalSpace]
@@ -138,7 +138,7 @@ router.post('/', authenticate, authorize('vendor'), createLimiter, validate(crea
 
 /**
  * @swagger
- * /api/v1/rentals/{id}:
+ * /rentals/{id}:
  *   get:
  *     summary: Get rental space by ID
  *     tags: [RentalSpace]
@@ -159,7 +159,7 @@ router.get('/:id', rentalController.getRentalSpaceById);
 
 /**
  * @swagger
- * /api/v1/rentals/{id}:
+ * /rentals/{id}:
  *   put:
  *     summary: Update rental space by ID
  *     tags: [RentalSpace]
@@ -210,7 +210,7 @@ router.put('/:id', authenticate, authorize('vendor'), validate(updateRentalSchem
 
 /**
  * @swagger
- * /api/v1/rentals/{id}:
+ * /rentals/{id}:
  *   delete:
  *     summary: Delete a rental space (soft delete)
  *     tags: [RentalSpace]

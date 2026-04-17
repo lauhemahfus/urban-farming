@@ -17,7 +17,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/produce:
+ * /produce:
  *   get:
  *     summary: List all produce
  *     tags: [Produce]
@@ -67,7 +67,7 @@ router.get('/', produceController.listProduce);
 
 /**
  * @swagger
- * /api/v1/produce/dashboard/admin:
+ * /produce/dashboard/admin:
  *   get:
  *     summary: Get produce dashboard for admin
  *     tags: [Produce]
@@ -81,7 +81,7 @@ router.get('/dashboard/admin', authenticate, authorize('admin'), produceControll
 
 /**
  * @swagger
- * /api/v1/produce/dashboard/vendor:
+ * /produce/dashboard/vendor:
  *   get:
  *     summary: Get produce dashboard for vendor
  *     tags: [Produce]
@@ -95,7 +95,7 @@ router.get('/dashboard/vendor', authenticate, authorize('vendor'), produceContro
 
 /**
  * @swagger
- * /api/v1/produce:
+ * /produce:
  *   post:
  *     summary: Create a new produce
  *     tags: [Produce]
@@ -142,7 +142,7 @@ router.post('/', authenticate, authorize('vendor'), createLimiter, validate(crea
 
 /**
  * @swagger
- * /api/v1/produce/{id}:
+ * /produce/{id}:
  *   get:
  *     summary: Get produce by ID
  *     tags: [Produce]
@@ -163,7 +163,7 @@ router.get('/:id', produceController.getProduceById);
 
 /**
  * @swagger
- * /api/v1/produce/{id}:
+ * /produce/{id}:
  *   put:
  *     summary: Update produce by ID
  *     tags: [Produce]
@@ -210,7 +210,7 @@ router.put('/:id', authenticate, authorize('vendor'), validate(updateProduceSche
 
 /**
  * @swagger
- * /api/v1/produce/{id}:
+ * /produce/{id}:
  *   delete:
  *     summary: Delete a produce (soft delete)
  *     tags: [Produce]
