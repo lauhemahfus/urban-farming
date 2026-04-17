@@ -38,7 +38,7 @@ model VendorProfile {
   farmLocation        String?
   latitude            Float?
   longitude           Float?
-  certificationStatus CertificationStatus   @default(pending)
+  vendorStatus        VendorStatus          @default(pending)
   contactNumber       String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime?             @updatedAt
@@ -183,6 +183,12 @@ enum UserStatus {
 }
 
 enum CertificationStatus {
+  pending
+  approved
+  rejected
+}
+
+enum VendorStatus {
   pending
   approved
   rejected

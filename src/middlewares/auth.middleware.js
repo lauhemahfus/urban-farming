@@ -1,7 +1,7 @@
 import { verifyToken } from '../utils/jwt.js';
 import { UnauthorizedError } from '../utils/errors.js';
 
-export const authMiddleware = (req, res, next) => {
+export const auth = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {

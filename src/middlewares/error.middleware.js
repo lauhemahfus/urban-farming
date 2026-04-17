@@ -29,6 +29,8 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
+    console.error('[Global Error_Handler]:', err);
+
     res.status(500).json({
         success: false,
         message: 'Internal Server Error',

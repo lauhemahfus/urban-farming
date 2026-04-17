@@ -3,7 +3,7 @@ import { hashPassword, comparePassword } from '../utils/password.js';
 import { BadRequestError, NotFoundError } from '../utils/errors.js';
 
 export const registerUser = async (userData) => {
-    const { name, email, password, role, phone } = userData;
+    const { name, email, password, phone } = userData;
 
     const existingUser = await prisma.user.findUnique({
         where: { email },
@@ -20,7 +20,7 @@ export const registerUser = async (userData) => {
             name,
             email,
             password: hashedPassword,
-            role,
+            role: 'user',
             phone,
         },
         select: {

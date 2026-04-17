@@ -3,7 +3,7 @@ import { register, login, refreshToken, getMe } from '../controllers/auth.contro
 import { registerLimiter, loginLimiter } from '../middlewares/rateLimit.middleware.js';
 import validate from '../middlewares/validate.middleware.js';
 import { registerSchema, loginSchema } from '../validations/auth.validation.js';
-import { authMiddleware } from '../middlewares/auth.middleware.js';
+import { auth } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
@@ -131,7 +131,7 @@ router.post('/refresh-token', refreshToken);
  *       500:
  *         description: Internal Server Error
  */
-router.get('/me', authMiddleware, getMe);
+router.get('/me', auth, getMe);
 
 export default router;
 
