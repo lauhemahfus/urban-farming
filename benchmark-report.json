@@ -1,0 +1,102 @@
+[
+  {
+    "Target": "Health Check",
+    "Method": "GET",
+    "Min Time": "1 ms",
+    "Max Time": "121 ms",
+    "Avg Time": "9.75 ms",
+    "Total Req": 19512,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "List Produce (Pagination)",
+    "Method": "GET",
+    "Min Time": "2034 ms",
+    "Max Time": "7510 ms",
+    "Avg Time": "4808.36 ms",
+    "Total Req": 39,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "List Produce (No Pagination)",
+    "Method": "GET",
+    "Min Time": "2253 ms",
+    "Max Time": "4429 ms",
+    "Avg Time": "2999.39 ms",
+    "Total Req": 59,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "List Rental Spaces",
+    "Method": "GET",
+    "Min Time": "1995 ms",
+    "Max Time": "3877 ms",
+    "Avg Time": "2684.81 ms",
+    "Total Req": 62,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "List Community Posts (Pagination)",
+    "Method": "GET",
+    "Min Time": "1840 ms",
+    "Max Time": "3832 ms",
+    "Avg Time": "2595.34 ms",
+    "Total Req": 68,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "List Community Posts (No Pagination)",
+    "Method": "GET",
+    "Min Time": "1951 ms",
+    "Max Time": "4631 ms",
+    "Avg Time": "2882.57 ms",
+    "Total Req": 60,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "Login User (Auth)",
+    "Method": "POST",
+    "Min Time": "1 ms",
+    "Max Time": "2442 ms",
+    "Avg Time": "14.82 ms",
+    "Total Req": 13062,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "Get Admin Profile / Dashboard",
+    "Method": "GET",
+    "Min Time": "7 ms",
+    "Max Time": "90 ms",
+    "Avg Time": "10.53 ms",
+    "Total Req": 18111,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "Search Produce (Location & Radius)",
+    "Method": "GET",
+    "Min Time": "1749 ms",
+    "Max Time": "6842 ms",
+    "Avg Time": "3508.14 ms",
+    "Total Req": 50,
+    "Errors": 0,
+    "Timeouts": 0
+  },
+  {
+    "Target": "Create Community Post",
+    "Method": "POST",
+    "Min Time": "1 ms",
+    "Max Time": "504 ms",
+    "Avg Time": "37.93 ms",
+    "Total Req": 5188,
+    "Errors": 0,
+    "Timeouts": 0
+  }
+]
