@@ -15,3 +15,12 @@ export const registerLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
 });
+
+export const createLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 100,
+    message: 'Too many creation requests from this IP, please try again after 15 minutes',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
