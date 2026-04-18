@@ -68,9 +68,10 @@ async function main() {
   }
 
   console.log('Creating 100 Produce items...');
+  const produceIds = [];
   for (let i = 1; i <= 100; i++) {
     const vendorId = vendorProfileIds[i % 10];
-    await prisma.produce.create({
+    const produce = await prisma.produce.create({
       data: {
         vendorId,
         name: `Produce ${i}`,
@@ -80,6 +81,49 @@ async function main() {
         certificationStatus: 'approved',
         status: 'active',
       },
+    });
+    produceIds.push(produce.id);
+  }
+
+  console.log('Creating 20 Rental Spaces...');
+  for (let i = 1; i <= 20; i++) {
+    const vendorId = vendorProfileIds[i % 10];
+    await prisma.rentalSpace.create({
+      data: {
+        vendorId,
+        location: `Location Plot ${i}`,
+        size: `${Math.floor(Math.random() * 50) + 10} sq meters`,
+        price: Math.floor(Math.random() * 100) + 50,
+        availability: 'active',
+        rentalDurationInDays: 30,
+        waterAvailability: true,
+        sunlightHours: 6,
+        description: `A great rental space for urban farming in location ${i}.`,
+      }
+    });
+  }
+
+  console.log('Creating 30 Orders...');
+  for (let i = 1; i <= 30; i++) {
+    const randomUser = userIds[Math.floor(Math.random() * userIds.length)];
+    const randomProduce1 = produceIds[Math.floor(Math.random() * produceIds.length)];
+    const randomProduce2 = produceIds[Math.floor(Math.random() * produceIds.length)];
+    
+    await prisma.order.create({
+      data: {
+        userId: randomUser,
+        status: 'pending',
+        totalAmount: 45.0,
+        shippingAddress: `123 Urban Farm Street, Apt ${i}`,
+        paymentStatus: 'paid',
+        paymentMethod: 'card',
+        items: {
+          create: [
+            { produceId: randomProduce1, quantity: 1, price: 15.0 },
+            { produceId: randomProduce2, quantity: 2, price: 15.0 }
+          ]
+        }
+      }
     });
   }
 

@@ -78,6 +78,17 @@ Here is the structural breakdown of the source code:
    npm run seed
    ```
 
+   **Default Seed Credentials:**
+   - **Admin:**
+     - Email: `admin@example.com`
+     - Password: `admin@123`
+   - **Users:**
+     - Emails: `user001@example.com` to `user005@example.com`
+     - Password: `user@123`
+   - **Vendors:**
+     - Emails: `vendoer001@example.com` to `vendoer010@example.com`
+     - Password: `vendoer@123`
+
 5. **Start the Application:**
    ```bash
    # Development mode with automatic restarts
