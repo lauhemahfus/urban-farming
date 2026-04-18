@@ -68,6 +68,19 @@ router.get('/', rentalController.listRentalSpaces);
  *     tags: [RentalSpace]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for recent rental spaces
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of items per page
  *     responses:
  *       200:
  *         description: Dashboard statistics for vendor
@@ -82,6 +95,19 @@ router.get('/dashboard/vendor', authenticate, authorize('vendor'), rentalControl
  *     tags: [RentalSpace]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for recent rental spaces
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of items per page
  *     responses:
  *       200:
  *         description: Dashboard statistics for admin

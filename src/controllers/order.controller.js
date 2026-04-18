@@ -63,7 +63,7 @@ export const listOrders = async (req, res, next) => {
 
 export const userDashboard = async (req, res, next) => {
   try {
-    const result = await orderService.getUserDashboard(req.user.id);
+    const result = await orderService.getUserDashboard(req.user.id, req.query);
     res.status(200).json({ success: true, data: result });
   } catch (error) {
     next(error);
@@ -72,7 +72,7 @@ export const userDashboard = async (req, res, next) => {
 
 export const vendorDashboard = async (req, res, next) => {
   try {
-    const result = await orderService.getVendorDashboard(req.user.vendorProfile.id);
+    const result = await orderService.getVendorDashboard(req.user.vendorProfile.id, req.query);
     res.status(200).json({ success: true, data: result });
   } catch (error) {
     next(error);
@@ -81,8 +81,8 @@ export const vendorDashboard = async (req, res, next) => {
 
 export const adminDashboard = async (req, res, next) => {
   try {
-    const result = await orderService.getAdminDashboard();
-    res.status(200).json({ success: true, data: {totalOrders: result} });
+    const result = await orderService.getAdminDashboard(req.query);
+    res.status(200).json({ success: true, data: result });
   } catch (error) {
     next(error);
   }

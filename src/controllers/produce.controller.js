@@ -56,8 +56,8 @@ export const listProduce = async (req, res, next) => {
 
 export const vendorDashboard = async (req, res, next) => {
   try {
-    const result = await produceService.getVendorDashboard(req.user.vendorProfile.id);
-    res.status(200).json({ success: true, data: result });
+    const result = await produceService.getVendorDashboard(req.user.vendorProfile.id, req.query);
+    res.status(200).json({ success: true, ...result });
   } catch (error) {
     next(error);
   }
@@ -65,8 +65,8 @@ export const vendorDashboard = async (req, res, next) => {
 
 export const adminDashboard = async (req, res, next) => {
   try {
-    const result = await produceService.getAdminDashboard();
-    res.status(200).json({ success: true, data: result });
+    const result = await produceService.getAdminDashboard(req.query);
+    res.status(200).json({ success: true, ...result });
   } catch (error) {
     next(error);
   }

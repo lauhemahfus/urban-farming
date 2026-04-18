@@ -77,14 +77,40 @@ export const listProduce = async (query) => {
   return { data, total, page: Number(page), limit: Number(limit) };
 };
 
-export const getVendorDashboard = async (vendorId) => {
-  return prisma.produce.findMany({
-    where: { vendorId, deletedAt: null }
-  });
+export const getVendorDashboard = async (vendorId, query = {}) => {
+  const { page = 1, limit = 10 } = query;
+  const skip = (page - 1) * limit;
+
+  const [totalProduce, activeProduce, recentProduce] = await Promise.all([
+    prisma.produce.count({ where: { vendorId, deletedAt: null } }),
+    prisma.produce.count({ where: { vendorId, deletedAt: null, status: 'active' } }),
+    prisma.produce.findMany({
+      where: { vendorId, deletedAt: null },
+      orderBy: { createdAt: 'desc' },
+      skip: Number(skip),
+      take: Number(limit)
+    })
+  ]);
+  
+  return { totalProduce, activeProduce, recentProduce, page: Number(page), limit: Number(limit) };
 };
 
-export const getAdminDashboard = async () => {
-    const totalProduce = await prisma.produce.count();
-    const activeProduce = await prisma.produce.count({where:{status:'active'}});
-    return {totalProduce, activeProduce};
-}
+export const getAdminDashboard = async (query = {}) => {
+  const { page = 1, limit = 10 } = query;
+  const skip = (page - 1) * limit;
+
+  const [totalProduce, activeProduce, recentProduce] = await Promise.all([
+    prisma.produce.count(),
+    prisma.produce.count({ where: { status:'active' } }),
+    prisma.produce.findMany({
+      orderBy: { createdAt: 'desc' },
+      skip: Number(skip),
+      take: Number(limit),
+      include: {
+        vendor: { select: { farmName: true, user: { select: { name: true, email: true } } } }
+      }
+    })
+  ]);
+  
+  return { totalProduce, activeProduce, recentProduce, page: Number(page), limit: Number(limit) };
+};
